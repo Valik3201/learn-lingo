@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
@@ -22,15 +23,16 @@ export default function Home() {
             Elevate your language proficiency to new heights by connecting with
             highly qualified and experienced tutors.
           </p>
-          <Button className="w-60 h-[60px] text-lg" variant={"yellow"}>
-            Get Started
+
+          <Button className="w-60 h-[60px] text-lg" variant={"yellow"} asChild>
+            <Link href="/teachers">Get Started</Link>
           </Button>
         </div>
         <div className="w-full lg:w-[40%] bg-yellow-foreground rounded-3xl flex justify-center items-end">
           <Image
             src="/hero.svg"
             width={391}
-            height={578}
+            height={450}
             alt="Hero Image"
             priority
             className="w-1/2 md:w-fit"
@@ -39,22 +41,38 @@ export default function Home() {
       </section>
 
       <section>
-        <ul className="flex flex-col flex-wrap lg:flex-row lg:flex-nowrap gap-20 py-11 place-content-center items-center border-dashed border-yellow border-2 rounded-3xl">
-          <li className="flex gap-4">
-            <h2 className="font-medium text-3xl text-nowrap">32,000 +</h2>
-            <p className="text-sm max-w-24 opacity-70">Experienced tutors</p>
+        <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 p-10 place-items-center items-center border-dashed border-yellow border-2 rounded-3xl">
+          <li className="grid grid-cols-2 gap-4">
+            <h2 className="font-medium text-3xl text-nowrap justify-self-end">
+              32,000 +
+            </h2>
+            <p className="text-sm max-w-20 opacity-70 justify-self-start">
+              Experienced tutors
+            </p>
           </li>
-          <li className="flex gap-4">
-            <h2 className="font-medium text-3xl text-nowrap">300,000 +</h2>
-            <p className="text-sm max-w-24 opacity-70">5-star tutor reviews</p>
+          <li className="grid grid-cols-2 gap-4">
+            <h2 className="font-medium text-3xl text-nowrap justify-self-end">
+              300,000 +
+            </h2>
+            <p className="text-sm max-w-20 opacity-70 justify-self-start">
+              5-star tutor reviews
+            </p>
           </li>
-          <li className="flex gap-4">
-            <h2 className="font-medium text-3xl text-nowrap">120 +</h2>
-            <p className="text-sm max-w-24 opacity-70">Subjects taught</p>
+          <li className="grid grid-cols-2 gap-4">
+            <h2 className="font-medium text-3xl text-nowrap justify-self-end">
+              120 +
+            </h2>
+            <p className="text-sm max-w-20 opacity-70 justify-self-start">
+              Subjects taught
+            </p>
           </li>
-          <li className="flex gap-4">
-            <h2 className="font-medium text-3xl text-nowrap">200 +</h2>
-            <p className="text-sm max-w-24 opacity-70">Tutor nationalities</p>
+          <li className="grid grid-cols-2 gap-4">
+            <h2 className="font-medium text-3xl text-nowrap justify-self-end">
+              200 +
+            </h2>
+            <p className="text-sm max-w-20 opacity-70justify-self-start">
+              Tutor nationalities
+            </p>
           </li>
         </ul>
       </section>
