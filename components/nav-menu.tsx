@@ -8,7 +8,7 @@ export function NavMenu() {
   return (
     <header className="grid grid-cols-3 px-16 py-5">
       <nav className="col-span-2 grid grid-cols-2 items-center">
-        <Link href="/signin" className="flex items-center gap-2 font-medium">
+        <Link href="/" className="flex items-center gap-2 font-medium w-fit">
           <LogoIcon className="mr-2" />
           LearnLingo
         </Link>
