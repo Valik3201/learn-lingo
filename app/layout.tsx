@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import "./globals.css";
 import { NavMenu } from "@/components/nav-menu";
 import { Footer } from "@/components/footer";
+import AuthProvider from "@/components/auth-provider";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -30,9 +31,11 @@ export default function RootLayout({
         )}
       >
         <div className="container">
-          <NavMenu />
-          {children}
-          <Footer />
+          <AuthProvider>
+            <NavMenu />
+            {children}
+            <Footer />
+          </AuthProvider>
         </div>
       </body>
     </html>
