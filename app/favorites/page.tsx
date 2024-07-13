@@ -2,8 +2,6 @@
 
 import { useEffect } from "react";
 import type { Teacher } from "@/store/useTeachersStore";
-import { useAuthStore } from "@/store/useAuthStore";
-import { useTeachersStore } from "@/store/useTeachersStore";
 import { useFavoritesStore } from "@/store/useFavoritesStore";
 import { usePaginatedData } from "@/hooks/use-paginated-data";
 import { Button } from "@/components/ui/button";
@@ -19,34 +17,24 @@ import {
 
 export default function Page() {
   const {
-    teachers: teachersStore,
-    loading: loadingTeachers,
-    fetchTeachers,
-  } = useTeachersStore();
-  const {
+    favorites: favoritesStore,
     fetchFavorites,
-    addToFavorites,
     removeFromFavorites,
-    isFavorite,
     loading: loadingFavorites,
   } = useFavoritesStore();
-  const { user, loading: loadingAuth } = useAuthStore();
 
   const {
-    paginatedData: teachers,
+    paginatedData: favorites,
     loadMore,
     hasMore,
-  } = usePaginatedData<Teacher>(teachersStore, 5);
+  } = usePaginatedData<Teacher>(favoritesStore, 5);
 
   useEffect(() => {
-    fetchTeachers();
-    if (user) {
-      fetchFavorites();
-    }
-  }, [fetchTeachers, fetchFavorites, user]);
+    fetchFavorites();
+  }, [fetchFavorites]);
 
   return (
-    <main className="px-16 space-y-8">
+    <main className="px-16">
       <style jsx global>{`
         body {
           background-color: #f8f8f8 !important;
@@ -107,13 +95,13 @@ export default function Page() {
         </div>
       </div>
 
-      {(loadingTeachers || loadingFavorites || loadingAuth) && (
-        <p className="text-right">Loading...</p>
-      )}
+      {loadingFavorites && <p className="text-right">Loading...</p>}
 
-      <ul className="flex flex-col gap-8">
-        {teachers.map((teacher) => (
-          <li key={teacher.id} className="bg-background rounded-lg p-6">
+      <h2 className="text-5xl font-extrabold">Favorites</h2>
+
+      <ul>
+        {favorites.map((teacher) => (
+          <li key={teacher.id}>
             <img
               src={teacher.avatar_url}
               alt={`${teacher.name} ${teacher.surname}`}
@@ -139,27 +127,15 @@ export default function Page() {
               ))}
             </div>
 
-            {isFavorite(teacher.id) ? (
-              <button onClick={() => removeFromFavorites(teacher.id)}>
-                ❤️
-              </button>
-            ) : (
-              <button onClick={() => addToFavorites(teacher)}>♡</button>
-            )}
+            <button onClick={() => removeFromFavorites(teacher.id)}>❤️</button>
           </li>
         ))}
       </ul>
 
       {hasMore && (
-        <div className="text-center py-8">
-          <Button
-            variant={"yellow"}
-            onClick={loadMore}
-            className="text-lg px-12 py-6"
-          >
-            Load More
-          </Button>
-        </div>
+        <Button variant={"yellow"} onClick={loadMore}>
+          Load More
+        </Button>
       )}
     </main>
   );
