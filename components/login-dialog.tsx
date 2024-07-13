@@ -1,3 +1,8 @@
+"use client";
+
+import { useState } from "react";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
 import { Button } from "./ui/button";
 import {
   Dialog,
@@ -14,6 +19,20 @@ import { LoginIcon } from "./icons";
 import { EyeOff } from "lucide-react";
 
 export function LoginDialog() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<FirebaseError | null>(null);
+
+  const handleLogin = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    const auth = getAuth();
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      setError(err as FirebaseError);
+    }
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -38,6 +57,8 @@ export function LoginDialog() {
             <Input
               id="email"
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
               className="h-14"
             />
@@ -54,15 +75,20 @@ export function LoginDialog() {
               <Input
                 id="password"
                 type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 className="h-14"
               />
             </div>
+
+            {error && <p className="text-destructive">{error.message}</p>}
           </div>
         </div>
         <DialogFooter>
           <Button
             type="submit"
+            onClick={handleLogin}
             variant="yellow"
             className="w-full h-[60px] text-lg"
           >
