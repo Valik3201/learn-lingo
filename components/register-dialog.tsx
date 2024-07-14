@@ -41,7 +41,7 @@ export function RegisterDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="font-bold text-base px-10">Registration</Button>
+        <Button className="font-bold text-base lg:px-10">Registration</Button>
       </DialogTrigger>
       <DialogContent className="max-w-96 sm:max-w-[566px]">
         <DialogHeader>
