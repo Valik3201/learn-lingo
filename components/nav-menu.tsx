@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 import { LogoIcon } from "./icons";
 
 export function NavMenu() {
-  const { user } = useAuthStore();
+  const { user, loading } = useAuthStore();
 
   return (
     <nav className="grid md:col-span-2 md:grid-cols-2 items-center">
