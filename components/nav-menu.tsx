@@ -2,24 +2,14 @@
 
 import Link from "next/link";
 import { useAuthStore } from "@/store/useAuthStore";
-import { signOut } from "firebase/auth";
-import { auth } from "@/firebase";
 import { Button } from "./ui/button";
 import { LogoIcon } from "./icons";
 import { LoginDialog } from "./login-dialog";
 import { RegisterDialog } from "./register-dialog";
-import { FirebaseError } from "firebase/app";
+import { LogoutDialog } from "./logout-dialog";
 
 export function NavMenu() {
   const { user } = useAuthStore();
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-    } catch (err) {
-      console.log(err as FirebaseError);
-    }
-  };
 
   return (
     <header className="grid grid-cols-3 px-16 py-5">
@@ -49,9 +39,7 @@ export function NavMenu() {
       {user ? (
         <div className="justify-self-end flex items-center gap-2">
           <p className="font-medium mr-2">Hello, {user.displayName}</p>
-          <Button variant="destructive" onClick={handleLogout}>
-            Log Out
-          </Button>
+          <LogoutDialog />
         </div>
       ) : (
         <div className="justify-self-end flex items-center gap-2">
