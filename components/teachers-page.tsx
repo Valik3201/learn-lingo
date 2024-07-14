@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import type { Teacher } from "@/store/useTeachersStore";
 import { usePaginatedData } from "@/hooks/use-paginated-data";
 import { useTeacherFilter } from "@/hooks/use-teacher-filter";
 import { TeacherFilter } from "@/components/teacher-filter";
@@ -14,7 +15,7 @@ export function TeacherPage({
 }: {
   fetchTeachers: () => void;
   loadingTeachers: boolean;
-  store: any;
+  store: Teacher[];
 }) {
   const { paginatedData, loadMore } = usePaginatedData(store, 5);
 
