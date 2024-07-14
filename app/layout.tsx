@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { cn } from "@/lib/utils";
-import "./globals.css";
-import { NavMenu } from "@/components/nav-menu";
-import { Footer } from "@/components/footer";
 import AuthProvider from "@/components/auth-provider";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import "./globals.css";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <div className="container">
           <AuthProvider>
-            <NavMenu />
+            <Header />
             {children}
             <Footer />
           </AuthProvider>
