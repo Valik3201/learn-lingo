@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
-import type { Teacher } from "@/store/useTeachersStore";
 import { useFavoritesStore } from "@/store/useFavoritesStore";
 import { usePaginatedData } from "@/hooks/use-paginated-data";
+import type { Teacher } from "@/store/useTeachersStore";
+import { TeacherCard } from "@/components/teacher-card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
@@ -19,7 +20,6 @@ export default function Page() {
   const {
     favorites: favoritesStore,
     fetchFavorites,
-    removeFromFavorites,
     loading: loadingFavorites,
   } = useFavoritesStore();
 
@@ -34,7 +34,7 @@ export default function Page() {
   }, [fetchFavorites]);
 
   return (
-    <main className="px-16">
+    <main className="md:px-16 space-y-8">
       <style jsx global>{`
         body {
           background-color: #f8f8f8 !important;
@@ -97,45 +97,24 @@ export default function Page() {
 
       {loadingFavorites && <p className="text-right">Loading...</p>}
 
-      <h2 className="text-5xl font-extrabold">Favorites</h2>
-
-      <ul>
+      <ul className="flex flex-col gap-8">
         {favorites.map((teacher) => (
           <li key={teacher.id}>
-            <img
-              src={teacher.avatar_url}
-              alt={`${teacher.name} ${teacher.surname}`}
-              width={50}
-            />
-            <h2>
-              {teacher.name} {teacher.surname}
-            </h2>
-            <p>{teacher.experience}</p>
-            <p>Languages: {teacher.languages.join(", ")}</p>
-            <p>Price per hour: ${teacher.price_per_hour}</p>
-            <p>Rating: {teacher.rating}</p>
-            <p>Lessons done: {teacher.lessons_done}</p>
-            <div>
-              <h3>Reviews:</h3>
-              {teacher.reviews.map((review, reviewIndex) => (
-                <div key={reviewIndex}>
-                  <p>{review.comment}</p>
-                  <p>
-                    - {review.reviewer_name}, Rating: {review.reviewer_rating}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <button onClick={() => removeFromFavorites(teacher.id)}>❤️</button>
+            <TeacherCard teacher={teacher} />
           </li>
         ))}
       </ul>
 
       {hasMore && (
-        <Button variant={"yellow"} onClick={loadMore}>
-          Load More
-        </Button>
+        <div className="text-center py-8">
+          <Button
+            variant={"yellow"}
+            onClick={loadMore}
+            className="text-lg px-12 py-6 w-full sm:w-fit"
+          >
+            Load More
+          </Button>
+        </div>
       )}
     </main>
   );
