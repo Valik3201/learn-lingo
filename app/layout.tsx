@@ -26,11 +26,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-h-svh bg-background font-sans antialiased",
           roboto.variable
         )}
       >
-        <div className="container">
+        <div className="container md:px-7 min-h-svh flex flex-col">
           <AuthProvider>
             <Header />
             {children}

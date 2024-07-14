@@ -15,12 +15,8 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 export function LogoutDialog() {
-  const { user } = useAuthStore();
-
   const handleLogout = async () => {
     try {
       await signOut(auth);

@@ -6,8 +6,8 @@ export default function Home() {
   return (
     <main className="space-y-6">
       <section className="flex flex-col lg:flex-row gap-6">
-        <div className="bg-primary-foreground rounded-3xl p-16 w-full lg:w-[60%] h-[530px] place-content-center">
-          <h1 className="text-3xl md:text-5xl font-medium mb-9 md:max-w-[548px] tracking-tight">
+        <div className="bg-primary-foreground rounded-3xl p-6 md:p-16 w-full lg:w-[60%] md:h-[530px] place-content-center">
+          <h1 className="text-3xl md:text-5xl font-medium mb-8 md:mb-9 md:max-w-[548px] tracking-tight">
             Unlock your potential with the best{" "}
             <span className="relative">
               <span
@@ -18,13 +18,17 @@ export default function Home() {
             </span>{" "}
             tutors
           </h1>
-          <p className="mb-16 max-w-[461px]">
+          <p className="mb-8 md:mb-16 max-w-[461px]">
             Embark on an Exciting Language Journey with Expert Language Tutors:
             Elevate your language proficiency to new heights by connecting with
             highly qualified and experienced tutors.
           </p>
 
-          <Button className="w-60 h-[60px] text-lg" variant={"yellow"} asChild>
+          <Button
+            className="w-full md:w-60 h-[60px] text-lg"
+            variant={"yellow"}
+            asChild
+          >
             <Link href="/teachers">Get Started</Link>
           </Button>
         </div>

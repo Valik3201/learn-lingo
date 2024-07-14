@@ -9,6 +9,8 @@ import { LogoutDialog } from "@/components/logout-dialog";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { LogoIcon, HamburgerIcon } from "./icons";
+import { LoginDialog } from "./login-dialog";
+import { RegisterDialog } from "./register-dialog";
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);
@@ -58,7 +60,14 @@ export function MobileNav() {
             )}
           </div>
 
-          {user && <LogoutDialog />}
+          {user ? (
+            <LogoutDialog />
+          ) : (
+            <div className="grid grid-cols-2 gap-2">
+              <LoginDialog />
+              <RegisterDialog />
+            </div>
+          )}
         </div>
       </SheetContent>
     </Sheet>
