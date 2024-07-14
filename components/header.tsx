@@ -11,14 +11,14 @@ import { NavMenu } from "./nav-menu";
 import { MobileNav } from "./mobile-nav";
 
 export function Header() {
-  const { user } = useAuthStore();
+  const { user, loading } = useAuthStore();
 
   return (
     <header className="grid grid-cols-2 md:grid-cols-3 md:px-16 py-5">
       <NavMenu />
       <MobileNav />
 
-      {user ? (
+      {!loading && user ? (
         <div className="hidden md:flex justify-self-end items-center gap-2">
           <p className="hidden lg:block font-medium mr-2">
             Hello, {user.displayName}

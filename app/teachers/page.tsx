@@ -23,10 +23,12 @@ export default function Page() {
     }
   }, [fetchTeachers, fetchFavorites, user]);
 
+  const isLoading = loadingTeachers || (user ? loadingFavorites : false);
+
   return (
     <TeacherPage
       fetchTeachers={fetchTeachers}
-      loadingTeachers={loadingTeachers || loadingFavorites}
+      loadingTeachers={isLoading}
       store={teachersStore}
     />
   );
