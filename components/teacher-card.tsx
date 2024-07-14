@@ -19,6 +19,12 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
   BookIcon,
   HeartIcon,
   HeartSolidIcon,
@@ -53,7 +59,20 @@ export function TeacherCard({ teacher }: { teacher: Teacher }) {
             </button>
           ) : (
             <button onClick={() => addToFavorites(teacher)}>
-              <HeartIcon />
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <HeartIcon />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>
+                      Only authorized users can add teachers to their
+                      <br />
+                      favorites. Please log in to continue.
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </button>
           )}
         </div>
@@ -99,7 +118,20 @@ export function TeacherCard({ teacher }: { teacher: Teacher }) {
                 </button>
               ) : (
                 <button onClick={() => addToFavorites(teacher)}>
-                  <HeartIcon />
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <HeartIcon />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>
+                          Only authorized users can add teachers to their
+                          <br />
+                          favorites. Please log in to continue.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </button>
               )}
             </div>
