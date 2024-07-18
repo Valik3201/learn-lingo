@@ -19,21 +19,46 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import {
   BookIcon,
   HeartIcon,
   HeartSolidIcon,
   StarIcon,
 } from "@/components/icons";
+import { useToast } from "@/components//ui/use-toast";
+import { useActionState } from "react";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export function TeacherCard({ teacher }: { teacher: Teacher }) {
   const { addToFavorites, removeFromFavorites, isFavorite } =
     useFavoritesStore();
+  const { user } = useAuthStore.getState();
+  const { toast } = useToast();
+
+  const handleAddToFavorites = async (teacher: Teacher) => {
+    if (!user) {
+      toast({
+        variant: "destructive",
+        title: "Please log in to continue",
+        description:
+          "Only authorized users can add teachers to their favorites.",
+      });
+    } else {
+      try {
+        await addToFavorites(teacher);
+        toast({
+          title: "Success",
+          description: "Teacher added to favorites successfully.",
+        });
+      } catch (error) {
+        console.error("Failed to add to favorites:", error);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to add teacher to favorites.",
+        });
+      }
+    }
+  };
 
   return (
     <Card>
@@ -58,21 +83,8 @@ export function TeacherCard({ teacher }: { teacher: Teacher }) {
               <HeartSolidIcon />
             </button>
           ) : (
-            <button onClick={() => addToFavorites(teacher)}>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <HeartIcon />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>
-                      Only authorized users can add teachers to their
-                      <br />
-                      favorites. Please log in to continue.
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+            <button onClick={() => handleAddToFavorites(teacher)}>
+              <HeartIcon />
             </button>
           )}
         </div>
@@ -117,21 +129,8 @@ export function TeacherCard({ teacher }: { teacher: Teacher }) {
                   <HeartSolidIcon />
                 </button>
               ) : (
-                <button onClick={() => addToFavorites(teacher)}>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <HeartIcon />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>
-                          Only authorized users can add teachers to their
-                          <br />
-                          favorites. Please log in to continue.
-                        </p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                <button onClick={() => handleAddToFavorites(teacher)}>
+                  <HeartIcon />
                 </button>
               )}
             </div>
