@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import AuthProvider from "@/components/auth-provider";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
 const roboto = Roboto({
@@ -37,6 +38,7 @@ export default function RootLayout({
             <Footer />
           </AuthProvider>
         </div>
+        <Toaster />
       </body>
     </html>
   );
