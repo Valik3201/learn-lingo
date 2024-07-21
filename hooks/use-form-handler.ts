@@ -12,6 +12,7 @@ import { FirebaseError } from "firebase/app";
 interface UseFormHandlerReturn<T extends FieldValues> {
   form: UseFormReturn<T>;
   error: FirebaseError | null;
+  loading: boolean;
   showPassword: boolean;
   setShowPassword: (value: boolean) => void;
   handleSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
@@ -23,6 +24,7 @@ export function useFormHandler<T extends FieldValues>(
   onSubmit: SubmitHandler<T>
 ): UseFormHandlerReturn<T> {
   const [error, setError] = useState<FirebaseError | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const form = useForm<T>({
@@ -33,10 +35,13 @@ export function useFormHandler<T extends FieldValues>(
   });
 
   const handleSubmit = form.handleSubmit(async (data) => {
+    setLoading(true);
     try {
       await onSubmit(data);
     } catch (err) {
       setError(err as FirebaseError);
+    } finally {
+      setLoading(false);
     }
   });
 
@@ -48,6 +53,7 @@ export function useFormHandler<T extends FieldValues>(
   return {
     form,
     error,
+    loading,
     showPassword,
     setShowPassword,
     handleSubmit,

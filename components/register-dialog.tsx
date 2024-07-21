@@ -19,6 +19,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Form, FormMessage } from "@/components/ui/form";
+import { Loader } from "lucide-react";
 
 const RegisterSchema = z.object({
   name: z.string().min(6, { message: "Name must be at least 6 characters" }),
@@ -43,6 +44,7 @@ export function RegisterDialog() {
   const {
     form,
     error,
+    loading,
     showPassword,
     setShowPassword,
     handleSubmit,
@@ -90,19 +92,28 @@ export function RegisterDialog() {
                 showPassword={showPassword}
                 setShowPassword={setShowPassword}
               />
-              {error && <p className="text-destructive">{error.message}</p>}
-              <Button
-                type="submit"
-                variant="yellow"
-                className="w-full h-[60px] text-lg"
-              >
-                Sign Up
-              </Button>
+
               {error && (
                 <FormMessage className="leading-none">
                   {error.message}
                 </FormMessage>
               )}
+
+              <Button
+                type="submit"
+                variant="yellow"
+                className="w-full h-[60px] text-lg mt-10"
+                disabled={loading}
+              >
+                {loading ? (
+                  <span className="flex items-center justify-center">
+                    <Loader className="mr-2 h-4 w-4 animate-spin" />
+                    Loading...
+                  </span>
+                ) : (
+                  "Sign Up"
+                )}
+              </Button>
             </form>
           </Form>
         </div>
