@@ -17,8 +17,6 @@ export function TeacherPage({
   loadingTeachers: boolean;
   store: Teacher[];
 }) {
-  const { paginatedData, loadMore } = usePaginatedData(store, 5);
-
   const {
     filteredTeachers,
     setSelectedLanguage,
@@ -34,7 +32,10 @@ export function TeacherPage({
     fetchTeachers();
   }, [fetchTeachers]);
 
-  const hasMore = filteredTeachers.length > paginatedData.length;
+  const { paginatedData, loadMore, hasMore } = usePaginatedData(
+    filteredTeachers,
+    5
+  );
 
   return (
     <main className="md:px-16 space-y-8">
@@ -61,10 +62,10 @@ export function TeacherPage({
         </Button>
       )}
 
-      {!loadingTeachers && filteredTeachers.length === 0 ? (
+      {!loadingTeachers && paginatedData.length === 0 ? (
         <NoTeachers />
       ) : (
-        <TeacherList teachers={filteredTeachers} />
+        <TeacherList teachers={paginatedData} />
       )}
 
       {hasMore && (
