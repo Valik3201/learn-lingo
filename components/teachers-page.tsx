@@ -27,6 +27,7 @@ export function TeacherPage({
     languages,
     levels,
     prices,
+    resetFilters,
   } = useTeacherFilter(store);
 
   useEffect(() => {
@@ -50,6 +51,7 @@ export function TeacherPage({
         languages={languages}
         levels={levels}
         prices={prices}
+        resetFilters={resetFilters}
       />
 
       {loadingTeachers && (
