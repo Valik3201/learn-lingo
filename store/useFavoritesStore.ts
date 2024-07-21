@@ -17,6 +17,7 @@ interface FavoriteState {
   addToFavorites: (teacher: Teacher) => Promise<void>;
   removeFromFavorites: (teacherId: string) => Promise<void>;
   isFavorite: (teacherId: string) => boolean;
+  clearFavorites: () => void;
 }
 
 export const useFavoritesStore = create<FavoriteState>((set, get) => ({
@@ -81,5 +82,8 @@ export const useFavoritesStore = create<FavoriteState>((set, get) => ({
   },
   isFavorite: (teacherId: string) => {
     return get().favorites.some((teacher) => teacher.id === teacherId);
+  },
+  clearFavorites: () => {
+    set({ favorites: [] });
   },
 }));

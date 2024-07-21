@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthStore } from "@/store/useAuthStore";
+import { useFavoritesStore } from "@/store/useFavoritesStore";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase";
 import type { FirebaseError } from "firebase/app";
@@ -17,9 +17,12 @@ import {
 } from "@/components/ui/dialog";
 
 export function LogoutDialog() {
+  const { clearFavorites } = useFavoritesStore.getState();
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
+      clearFavorites();
     } catch (err) {
       console.log(err as FirebaseError);
     }
