@@ -1,40 +1,51 @@
 "use client";
 
-import { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { FirebaseError } from "firebase/app";
+import * as z from "zod";
+
+import { useFormHandler } from "@/hooks/use-form-handler";
+import { FormFieldComponent } from "@/components/form-field";
 import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { LoginIcon } from "./icons";
-import { EyeOff } from "lucide-react";
+import { Form, FormMessage } from "@/components/ui/form";
+import { LoginIcon } from "@/components/icons";
+
+const LoginSchema = z.object({
+  email: z
+    .string()
+    .email({ message: "Invalid email address" })
+    .min(1, { message: "Email is required" }),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters" }),
+});
+
+type LoginFormInputs = z.infer<typeof LoginSchema>;
 
 export function LoginDialog() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<FirebaseError | null>(null);
-
-  const handleLogin = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    const auth = getAuth();
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (err) {
-      setError(err as FirebaseError);
-    }
+  const auth = getAuth();
+  const handleLogin = async (data: LoginFormInputs) => {
+    await signInWithEmailAndPassword(auth, data.email, data.password);
   };
 
+  const {
+    form,
+    error,
+    showPassword,
+    setShowPassword,
+    handleSubmit,
+    handleOpen,
+  } = useFormHandler(LoginSchema, handleLogin);
+
   return (
-    <Dialog>
+    <Dialog onOpenChange={handleOpen}>
       <DialogTrigger asChild>
         <Button variant={"ghost"} className="font-bold text-base">
           <LoginIcon className="mr-2" />
@@ -50,51 +61,39 @@ export function LoginDialog() {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4">
-          <div className="grid grid-cols-1 items-center gap-4">
-            <Label htmlFor="email" className="sr-only">
-              Email
-            </Label>
-            <Input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              className="h-14"
-            />
-          </div>
-          <div className="grid grid-cols-1 items-center gap-4">
-            <Label htmlFor="password" className="sr-only">
-              Password
-            </Label>
-            <div className="relative">
-              <div className="absolute inset-y-0 end-4 flex items-center ps-3 pointer-events-none">
-                <EyeOff />
-              </div>
-
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                className="h-14"
+          <Form {...form}>
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <FormFieldComponent
+                label="Email"
+                type="email"
+                name="email"
+                form={form}
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
               />
-            </div>
-
-            {error && <p className="text-destructive">{error.message}</p>}
-          </div>
+              <FormFieldComponent
+                label="Password"
+                type="password"
+                name="password"
+                form={form}
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
+              />
+              {error && (
+                <FormMessage className="leading-none">
+                  {error.message}
+                </FormMessage>
+              )}
+              <Button
+                type="submit"
+                variant="yellow"
+                className="w-full h-[60px] text-lg mt-10"
+              >
+                Log In
+              </Button>
+            </form>
+          </Form>
         </div>
-        <DialogFooter>
-          <Button
-            type="submit"
-            onClick={handleLogin}
-            variant="yellow"
-            className="w-full h-[60px] text-lg"
-          >
-            Log In
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

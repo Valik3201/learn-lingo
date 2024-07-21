@@ -25,7 +25,6 @@ import {
   StarIcon,
 } from "@/components/icons";
 import { useToast } from "@/components//ui/use-toast";
-import { useActionState } from "react";
 import { useAuthStore } from "@/store/useAuthStore";
 
 export function TeacherCard({ teacher }: { teacher: Teacher }) {

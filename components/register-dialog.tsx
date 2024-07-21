@@ -1,45 +1,56 @@
 "use client";
 
-import { useState } from "react";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { FirebaseError } from "firebase/app";
+import * as z from "zod";
+
+import { useFormHandler } from "@/hooks/use-form-handler";
+import { FormFieldComponent } from "./form-field";
 import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { EyeOff } from "lucide-react";
+import { Form, FormMessage } from "@/components/ui/form";
+
+const RegisterSchema = z.object({
+  name: z.string().min(6, { message: "Name must be at least 6 characters" }),
+  email: z
+    .string()
+    .email({ message: "Invalid email address" })
+    .min(1, { message: "Email is required" }),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters" }),
+});
+
+type RegisterFormInputs = z.infer<typeof RegisterSchema>;
 
 export function RegisterDialog() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<FirebaseError | null>(null);
-
-  const handleRegister = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    const auth = getAuth();
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(auth.currentUser!, { displayName: name });
-    } catch (err) {
-      setError(err as FirebaseError);
-    }
+  const auth = getAuth();
+  const handleRegister = async (data: RegisterFormInputs) => {
+    await createUserWithEmailAndPassword(auth, data.email, data.password);
+    await updateProfile(auth.currentUser!, { displayName: data.name });
   };
 
+  const {
+    form,
+    error,
+    showPassword,
+    setShowPassword,
+    handleSubmit,
+    handleOpen,
+  } = useFormHandler(RegisterSchema, handleRegister);
+
   return (
-    <Dialog>
+    <Dialog onOpenChange={handleOpen}>
       <DialogTrigger asChild>
         <Button className="font-bold text-base lg:px-10">Registration</Button>
       </DialogTrigger>
@@ -53,63 +64,48 @@ export function RegisterDialog() {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4">
-          <div className="grid grid-cols-1 items-center gap-4">
-            <Label htmlFor="name" className="sr-only">
-              Name
-            </Label>
-            <Input
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Name"
-              className="h-14"
-            />
-          </div>
-          <div className="grid grid-cols-1 items-center gap-4">
-            <Label htmlFor="email" className="sr-only">
-              Email
-            </Label>
-            <Input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              className="h-14"
-            />
-          </div>
-          <div className="grid grid-cols-1 items-center gap-4">
-            <Label htmlFor="password" className="sr-only">
-              Password
-            </Label>
-            <div className="relative">
-              <div className="absolute inset-y-0 end-4 flex items-center ps-3 pointer-events-none">
-                <EyeOff />
-              </div>
-
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                className="h-14"
+          <Form {...form}>
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <FormFieldComponent
+                label="Name"
+                type="text"
+                name="name"
+                form={form}
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
               />
-            </div>
-
-            {error && <p className="text-destructive">{error.message}</p>}
-          </div>
+              <FormFieldComponent
+                label="Email"
+                type="email"
+                name="email"
+                form={form}
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
+              />
+              <FormFieldComponent
+                label="Password"
+                type="password"
+                name="password"
+                form={form}
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
+              />
+              {error && <p className="text-destructive">{error.message}</p>}
+              <Button
+                type="submit"
+                variant="yellow"
+                className="w-full h-[60px] text-lg"
+              >
+                Sign Up
+              </Button>
+              {error && (
+                <FormMessage className="leading-none">
+                  {error.message}
+                </FormMessage>
+              )}
+            </form>
+          </Form>
         </div>
-        <DialogFooter>
-          <Button
-            type="submit"
-            onClick={handleRegister}
-            variant="yellow"
-            className="w-full h-[60px] text-lg"
-          >
-            Sign Up
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

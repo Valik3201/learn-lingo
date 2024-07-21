@@ -14,8 +14,17 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://learn-lingo-one.vercel.app"),
   title: "Learn Lingo",
   description: "Unlock your potential with the best language tutors",
+  openGraph: {
+    title: "Learn Lingo",
+    description:
+      "Embark on an Exciting Language Journey with Expert Language Tutors: Elevate your language proficiency to new heights by connecting with highly qualified and experienced tutors.",
+    url: "https://learn-lingo-one.vercel.app",
+    type: "website",
+    siteName: "Learn Lingo",
+  },
 };
 
 export default function RootLayout({
