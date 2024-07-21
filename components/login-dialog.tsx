@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { Form, FormMessage } from "@/components/ui/form";
 import { LoginIcon } from "@/components/icons";
+import { Loader } from "lucide-react";
 
 const LoginSchema = z.object({
   email: z
@@ -31,6 +32,7 @@ type LoginFormInputs = z.infer<typeof LoginSchema>;
 
 export function LoginDialog() {
   const auth = getAuth();
+
   const handleLogin = async (data: LoginFormInputs) => {
     await signInWithEmailAndPassword(auth, data.email, data.password);
   };
@@ -38,6 +40,7 @@ export function LoginDialog() {
   const {
     form,
     error,
+    loading,
     showPassword,
     setShowPassword,
     handleSubmit,
@@ -57,7 +60,7 @@ export function LoginDialog() {
           <DialogTitle>Log In</DialogTitle>
           <DialogDescription>
             Welcome back! Please enter your credentials to access your account
-            and continue your search for an teacher.
+            and continue your search for a teacher.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4">
@@ -79,17 +82,27 @@ export function LoginDialog() {
                 showPassword={showPassword}
                 setShowPassword={setShowPassword}
               />
+
               {error && (
                 <FormMessage className="leading-none">
                   {error.message}
                 </FormMessage>
               )}
+
               <Button
                 type="submit"
                 variant="yellow"
                 className="w-full h-[60px] text-lg mt-10"
+                disabled={loading}
               >
-                Log In
+                {loading ? (
+                  <span className="flex items-center justify-center">
+                    <Loader className="mr-2 h-4 w-4 animate-spin" />
+                    Loading...
+                  </span>
+                ) : (
+                  "Log In"
+                )}
               </Button>
             </form>
           </Form>
