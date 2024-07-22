@@ -5,7 +5,7 @@ import {
   FieldValues,
   SubmitHandler,
 } from "react-hook-form";
-import { z, ZodSchema } from "zod";
+import { ZodSchema } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FirebaseError } from "firebase/app";
 
