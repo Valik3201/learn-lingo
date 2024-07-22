@@ -10,7 +10,7 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "bg-background rounded-xl p-6 flex flex-col lg:flex-row gap-2 lg:gap-12",
+      "bg-background rounded-xl p-6 flex flex-col lg:flex-row gap-2 lg:gap-12 dark:border",
       className
     )}
     {...props}
@@ -82,7 +82,7 @@ const CardImage = React.forwardRef<HTMLDivElement, CardImageProps>(
     <div
       ref={ref}
       className={cn(
-        "relative flex justify-center items-center w-20 h-20 md:min-w-[120px] md:w-[120px] md:h-[120px] border-[3px] border-yellow-foreground rounded-full",
+        "relative flex justify-center items-center w-20 h-20 md:min-w-[120px] md:w-[120px] md:h-[120px] border-[3px] border-yellow-foreground dark:border-yellow rounded-full",
         className
       )}
       {...props}
@@ -95,7 +95,7 @@ const CardImage = React.forwardRef<HTMLDivElement, CardImageProps>(
         priority
         className="rounded-full w-[60px] h-[60px] md:w-24 md:h-24"
       />
-      <span className="absolute h-3 w-3 bg-[#38CD3E] rounded-full top-2 right-2 md:top-4 md:right-4 border-2 border-white"></span>
+      <span className="absolute h-3 w-3 bg-[#38CD3E] rounded-full top-2 right-2 md:top-4 md:right-4 border-2 border-white dark:border-black"></span>
     </div>
   )
 );
