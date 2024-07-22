@@ -53,7 +53,7 @@ export function MobileNav() {
                   Favorites
                 </MobileLink>
 
-                <MobileLink href={"/"} onOpenChange={setOpen}>
+                <MobileLink href={"/profile"} onOpenChange={setOpen}>
                   Profile
                 </MobileLink>
               </>
