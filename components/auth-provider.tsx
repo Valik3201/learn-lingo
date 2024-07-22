@@ -5,7 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase";
 import { useAuthStore } from "@/store/useAuthStore";
 
-const AuthProvider = ({ children }: { children: ReactNode }) => {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const { setUser, setLoading } = useAuthStore();
 
   useEffect(() => {
@@ -18,6 +18,4 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [setUser, setLoading]);
 
   return children;
-};
-
-export default AuthProvider;
+}
