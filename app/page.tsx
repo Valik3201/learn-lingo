@@ -11,7 +11,7 @@ export default function Home() {
             Unlock your potential with the best{" "}
             <span className="relative">
               <span
-                className="block absolute inset-0 top-0 md:top-3 h-10 bg-yellow-foreground rounded-md"
+                className="block absolute inset-0 top-0 md:top-3 h-10 bg-yellow-foreground dark:bg-yellow rounded-md"
                 aria-hidden="true"
               ></span>
               <span className="relative italic font-normal">language</span>

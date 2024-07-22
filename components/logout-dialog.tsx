@@ -15,6 +15,7 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
+import { LogOut } from "lucide-react";
 
 export function LogoutDialog() {
   const { clearFavorites } = useFavoritesStore.getState();
@@ -31,7 +32,13 @@ export function LogoutDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="destructive">Log Out</Button>
+        <Button
+          variant="ghost"
+          className="h-auto w-full justify-start text-destructive hover:text-destructive"
+        >
+          <LogOut className="mr-2 h-4 w-4" />
+          Log Out
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-w-96 sm:max-w-[566px]">
         <DialogHeader>

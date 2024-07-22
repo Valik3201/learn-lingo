@@ -129,7 +129,7 @@ export function TeacherCard({ teacher }: { teacher: Teacher }) {
                 </button>
               ) : (
                 <button onClick={() => handleAddToFavorites(teacher)}>
-                  <HeartIcon />
+                  <HeartIcon className="[&>path]:stroke-primary" />
                 </button>
               )}
             </div>

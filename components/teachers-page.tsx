@@ -43,6 +43,9 @@ export function TeacherPage({
         body {
           background-color: #f8f8f8 !important;
         }
+        .dark body {
+          background-color: #000 !important;
+        }
       `}</style>
 
       <TeacherFilter
