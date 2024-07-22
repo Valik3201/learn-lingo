@@ -1,14 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useAuthStore } from "@/store/useAuthStore";
-import { Button } from "./ui/button";
-import { LogoIcon } from "./icons";
 import { LoginDialog } from "./login-dialog";
 import { RegisterDialog } from "./register-dialog";
-import { LogoutDialog } from "./logout-dialog";
 import { NavMenu } from "./nav-menu";
 import { MobileNav } from "./mobile-nav";
+import { UserMenu } from "./user-menu";
 
 export function Header() {
   const { user, loading } = useAuthStore();
@@ -20,10 +17,7 @@ export function Header() {
 
       {!loading && user ? (
         <div className="hidden md:flex justify-self-end items-center gap-2">
-          <p className="hidden lg:block font-medium mr-2">
-            Hello, {user.displayName}
-          </p>
-          <LogoutDialog />
+          <UserMenu name={user.displayName!} />
         </div>
       ) : (
         <div className="hidden md:flex justify-self-end items-center gap-2">
