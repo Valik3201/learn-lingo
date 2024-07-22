@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { cn } from "@/lib/utils";
-import AuthProvider from "@/components/auth-provider";
+
+import { ThemeProvider } from "@/components/theme-provider";
+import { AuthProvider } from "@/components/auth-provider";
+
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Toaster } from "@/components/ui/toaster";
@@ -33,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="relative" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-svh bg-background font-sans antialiased",
@@ -41,11 +44,13 @@ export default function RootLayout({
         )}
       >
         <div className="container md:px-7 min-h-svh flex flex-col">
-          <AuthProvider>
-            <Header />
-            {children}
-            <Footer />
-          </AuthProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <AuthProvider>
+              <Header />
+              {children}
+              <Footer />
+            </AuthProvider>
+          </ThemeProvider>
         </div>
         <Toaster />
       </body>
