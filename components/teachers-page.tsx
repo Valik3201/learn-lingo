@@ -6,7 +6,7 @@ import { TeacherFilter } from "@/components/teacher-filter";
 import { TeacherList } from "@/components/teachers-list";
 import { NoTeachers } from "@/components/no-teachers";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import { Loader } from "lucide-react";
 
 export function TeacherPage({
   fetchTeachers,
@@ -60,7 +60,7 @@ export function TeacherPage({
 
       {loadingTeachers && (
         <Button disabled variant="ghost" className="w-full">
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          <Loader className="mr-2 h-4 w-4 animate-spin" />
           Loading...
         </Button>
       )}
