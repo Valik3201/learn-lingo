@@ -4,6 +4,7 @@ import {
   UseFormReturn,
   FieldValues,
   SubmitHandler,
+  DefaultValues,
 } from "react-hook-form";
 import { ZodSchema } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,10 +20,17 @@ interface UseFormHandlerReturn<T extends FieldValues> {
   handleOpen: () => void;
 }
 
-export function useFormHandler<T extends FieldValues>(
-  schema: ZodSchema<T>,
-  onSubmit: SubmitHandler<T>
-): UseFormHandlerReturn<T> {
+interface UseFormHandlerOptions<T extends FieldValues> {
+  schema: ZodSchema<T>;
+  onSubmit: SubmitHandler<T>;
+  defaultValues?: DefaultValues<T>;
+}
+
+export function useFormHandler<T extends FieldValues>({
+  schema,
+  onSubmit,
+  defaultValues,
+}: UseFormHandlerOptions<T>): UseFormHandlerReturn<T> {
   const [error, setError] = useState<FirebaseError | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -32,6 +40,7 @@ export function useFormHandler<T extends FieldValues>(
     mode: "onBlur",
     reValidateMode: "onChange",
     shouldFocusError: false,
+    defaultValues,
   });
 
   const handleSubmit = form.handleSubmit(async (data) => {
