@@ -6,9 +6,12 @@ import { RegisterDialog } from "./register-dialog";
 import { NavMenu } from "./nav-menu";
 import { MobileNav } from "./mobile-nav";
 import { UserMenu } from "./user-menu";
+import { Loader } from "@/components/loader";
 
 export function Header() {
   const { user, loading } = useAuthStore();
+
+  if (loading) return <Loader />;
 
   return (
     <header className="grid grid-cols-2 md:grid-cols-3 md:px-16 py-5">
