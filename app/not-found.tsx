@@ -15,7 +15,7 @@ export default function NotFound() {
               Whoops! That page doesn&apos;t exist.
             </p>
             <p className="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">
-              You'll find lots to explore on the home page.
+              You&apos;ll find lots to explore on the home page.
             </p>
 
             <Link
