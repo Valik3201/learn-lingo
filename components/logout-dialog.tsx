@@ -34,9 +34,9 @@ export function LogoutDialog() {
       <DialogTrigger asChild>
         <Button
           variant="ghost"
-          className="h-auto w-full justify-start text-destructive hover:text-destructive"
+          className="h-auto w-full justify-start text-destructive hover:text-destructive px-1.5 py-2"
         >
-          <LogOut className="mr-2 h-4 w-4" />
+          <LogOut className="ms-3 me-2 h-4 w-4" />
           Log Out
         </Button>
       </DialogTrigger>
@@ -48,9 +48,9 @@ export function LogoutDialog() {
           </DialogDescription>
         </DialogHeader>
 
-        <DialogFooter>
+        <DialogFooter className="grid grid-cols-2 gap-2">
           <DialogClose>
-            <Button variant="secondary" size="lg">
+            <Button variant="secondary" size="lg" className="w-full">
               Cancel
             </Button>
           </DialogClose>

@@ -7,7 +7,14 @@ import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/store/useAuthStore";
 import { LogoutDialog } from "@/components/logout-dialog";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { LogoIcon, HamburgerIcon } from "./icons";
 import { LoginDialog } from "./login-dialog";
 import { RegisterDialog } from "./register-dialog";
@@ -28,6 +35,12 @@ export function MobileNav() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="p-6">
+        <SheetHeader className="sr-only">
+          <SheetTitle>Menu</SheetTitle>
+          <SheetDescription>
+            Navigate through the app using the links below.
+          </SheetDescription>
+        </SheetHeader>
         <MobileLink
           href="/"
           className="flex items-center font-medium w-fit"
@@ -54,7 +67,7 @@ export function MobileNav() {
                 </MobileLink>
 
                 <MobileLink href={"/profile"} onOpenChange={setOpen}>
-                  Profile
+                  My Account
                 </MobileLink>
               </>
             )}

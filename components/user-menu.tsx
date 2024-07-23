@@ -32,9 +32,7 @@ export function UserMenu({ name }: { name: string }) {
           </DropdownMenuItem>
         </DropdownMenuGroup>
 
-        <DropdownMenuItem asChild>
-          <LogoutDialog />
-        </DropdownMenuItem>
+        <LogoutDialog />
       </DropdownMenuContent>
     </DropdownMenu>
   );

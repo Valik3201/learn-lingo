@@ -45,7 +45,14 @@ export function LoginDialog() {
     setShowPassword,
     handleSubmit,
     handleOpen,
-  } = useFormHandler(LoginSchema, handleLogin);
+  } = useFormHandler({
+    schema: LoginSchema,
+    onSubmit: handleLogin,
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   return (
     <Dialog onOpenChange={handleOpen}>

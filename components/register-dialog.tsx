@@ -49,7 +49,15 @@ export function RegisterDialog() {
     setShowPassword,
     handleSubmit,
     handleOpen,
-  } = useFormHandler(RegisterSchema, handleRegister);
+  } = useFormHandler({
+    schema: RegisterSchema,
+    onSubmit: handleRegister,
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+  });
 
   return (
     <Dialog onOpenChange={handleOpen}>
