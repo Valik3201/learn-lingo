@@ -11,9 +11,10 @@ import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 
 interface FormFieldComponentProps<T extends FieldValues> {
-  label: string;
-  type: string;
+  label?: string;
+  type?: string;
   name: Path<T>;
+  placeholder?: string;
   form: UseFormReturn<T>;
   showPassword?: boolean;
   setShowPassword?: (value: boolean) => void;
@@ -23,10 +24,13 @@ export function FormFieldComponent<T extends FieldValues>({
   label,
   type,
   name,
+  placeholder,
   form,
   showPassword,
   setShowPassword,
 }: FormFieldComponentProps<T>) {
+  const inputPlaceholder = placeholder || label || name;
+
   return (
     <FormField
       control={form.control}
@@ -34,7 +38,8 @@ export function FormFieldComponent<T extends FieldValues>({
       render={({ field }) => (
         <FormItem>
           <div className="flex justify-between">
-            <FormLabel>{label}</FormLabel>
+            <FormLabel className={label ? "" : "sr-only"}>{label}</FormLabel>
+
             {form.formState.errors[name as string] && (
               <FormMessage className="leading-none">
                 {form.formState.errors[name]?.message as React.ReactNode}
@@ -59,7 +64,7 @@ export function FormFieldComponent<T extends FieldValues>({
                 </div>
                 <Input
                   type={showPassword ? "text" : "password"}
-                  placeholder={label}
+                  placeholder={inputPlaceholder}
                   className="h-14"
                   {...field}
                 />
@@ -67,7 +72,7 @@ export function FormFieldComponent<T extends FieldValues>({
             ) : (
               <Input
                 type={type}
-                placeholder={label}
+                placeholder={inputPlaceholder}
                 className="h-14"
                 {...field}
               />
