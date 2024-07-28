@@ -1,8 +1,16 @@
 "use client";
 
 import { useState } from "react";
+
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import Image from "next/image";
+
 import type { Teacher } from "@/store/useTeachersStore";
-import { Button } from "./ui/button";
+import { FormFieldComponent } from "@/components/form-field";
+
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -10,20 +18,54 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetFooter,
+  SheetClose,
 } from "@/components/ui/sheet";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import Image from "next/image";
+import { Form, FormMessage } from "@/components/ui/form";
+import { Loader } from "lucide-react";
+
+const formSchema = z.object({
+  name: z.string().min(1, { message: "Full Name is required" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  number: z
+    .string()
+    .min(1, { message: "Phone Number is required" })
+    .regex(/^\+?[1-9]\d{1,14}$/, { message: "Invalid phone number format" }),
+});
 
 export function LessonBookSheet({ teacher }: { teacher?: Teacher }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [number, setNumber] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showMessage, setShowMessage] = useState<boolean>(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      number: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      setShowMessage(true);
+      setIsSubmitted(true);
+    }, 2000);
+  }
+
+  const handleOpen = () => {
+    form.reset();
+    setShowMessage(false);
+    setIsSubmitted(false);
+  };
 
   return (
-    <Sheet>
+    <Sheet onOpenChange={handleOpen}>
       <SheetTrigger asChild>
         <Button variant="yellow" className="px-12 py-6 text-lg sm:w-fit">
           Book trial lesson
@@ -96,55 +138,61 @@ export function LessonBookSheet({ teacher }: { teacher?: Teacher }) {
           </RadioGroup>
         </div>
 
-        <div className="grid gap-4 mb-10">
-          <div className="grid grid-cols-1 items-center gap-4">
-            <Label htmlFor="name" className="sr-only">
-              Full Name
-            </Label>
-            <Input
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
+            <FormFieldComponent
               placeholder="Full Name"
-              className="h-14"
+              name="name"
+              form={form}
             />
-          </div>
-          <div className="grid grid-cols-1 items-center gap-4">
-            <Label htmlFor="email" className="sr-only">
-              Email
-            </Label>
-            <Input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+            <FormFieldComponent
               placeholder="Email"
-              className="h-14"
+              type="email"
+              name="email"
+              form={form}
             />
-          </div>
-          <div className="grid grid-cols-1 items-center gap-4">
-            <Label htmlFor="number" className="sr-only">
-              Phone Number
-            </Label>
-
-            <Input
-              id="number"
-              value={number}
-              onChange={(e) => setNumber(e.target.value)}
+            <FormFieldComponent
               placeholder="Phone Number"
-              className="h-14"
+              name="number"
+              form={form}
             />
-          </div>
-        </div>
-        <SheetFooter>
-          <Button
-            type="submit"
-            variant="yellow"
-            className="w-full h-[60px] text-lg"
-          >
-            Book
-          </Button>
-        </SheetFooter>
+
+            {!isSubmitted && (
+              <Button
+                type="submit"
+                variant="yellow"
+                className="w-full h-[60px] text-lg mt-10"
+                disabled={loading}
+              >
+                {loading ? (
+                  <span className="flex items-center justify-center">
+                    <Loader className="mr-2 h-4 w-4 animate-spin" />
+                    Loading...
+                  </span>
+                ) : (
+                  "Book"
+                )}
+              </Button>
+            )}
+
+            {isSubmitted && (
+              <SheetClose asChild>
+                <Button
+                  variant="yellow"
+                  className="w-full h-[60px] text-lg mt-10"
+                >
+                  Close
+                </Button>
+              </SheetClose>
+            )}
+
+            {showMessage && (
+              <FormMessage className="text-primary font-bold text-lg mt-5 text-center">
+                Your trial lesson has been successfully booked!
+              </FormMessage>
+            )}
+          </form>
+        </Form>
       </SheetContent>
     </Sheet>
   );

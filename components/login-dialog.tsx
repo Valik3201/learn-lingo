@@ -78,8 +78,6 @@ export function LoginDialog() {
                 type="email"
                 name="email"
                 form={form}
-                showPassword={showPassword}
-                setShowPassword={setShowPassword}
               />
               <FormFieldComponent
                 label="Password"
