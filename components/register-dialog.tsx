@@ -8,8 +8,8 @@ import {
 import * as z from "zod";
 
 import { useFormHandler } from "@/hooks/use-form-handler";
-import { FormFieldComponent } from "./form-field";
-import { Button } from "./ui/button";
+import { FormFieldComponent } from "@/components/form-field";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -81,16 +81,12 @@ export function RegisterDialog() {
                 type="text"
                 name="name"
                 form={form}
-                showPassword={showPassword}
-                setShowPassword={setShowPassword}
               />
               <FormFieldComponent
                 label="Email"
                 type="email"
                 name="email"
                 form={form}
-                showPassword={showPassword}
-                setShowPassword={setShowPassword}
               />
               <FormFieldComponent
                 label="Password"
