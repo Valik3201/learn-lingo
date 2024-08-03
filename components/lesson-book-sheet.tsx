@@ -32,6 +32,7 @@ const formSchema = z.object({
     .string()
     .min(1, { message: "Phone Number is required" })
     .regex(/^\+?[1-9]\d{1,14}$/, { message: "Invalid phone number format" }),
+  reason: z.string().min(1, { message: "Please select a reason" }),
 });
 
 export function LessonBookSheet({ teacher }: { teacher?: Teacher }) {
@@ -45,21 +46,23 @@ export function LessonBookSheet({ teacher }: { teacher?: Teacher }) {
       name: "",
       email: "",
       number: "",
+      reason: "career-business",
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
     setLoading(true);
 
     setTimeout(() => {
       setLoading(false);
       setShowMessage(true);
       setIsSubmitted(true);
-    }, 2000);
+    }, 1000);
   }
 
   const handleOpen = () => {
-    form.reset();
+    form.reset({ reason: "career-business" });
     setShowMessage(false);
     setIsSubmitted(false);
   };
@@ -98,99 +101,127 @@ export function LessonBookSheet({ teacher }: { teacher?: Teacher }) {
             </div>
           </div>
         )}
-
-        <div className="space-y-5 mb-10">
-          <h3 className="font-medium text-xl md:text-2xl mb-5">
-            What is your main reason for learning English?
-          </h3>
-
-          <RadioGroup defaultValue="option-one">
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="option-one" id="option-one" />
-              <Label htmlFor="option-one" className="text-base font-normal">
-                Career and business
-              </Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="option-two" id="option-two" />
-              <Label htmlFor="option-two" className="text-base font-normal">
-                Lesson for kids
-              </Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="option-three" id="option-three" />
-              <Label htmlFor="option-three" className="text-base font-normal">
-                Living abroad
-              </Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="option-four" id="option-four" />
-              <Label htmlFor="option-four" className="text-base font-normal">
-                Exams and coursework
-              </Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="option-five" id="option-five" />
-              <Label htmlFor="option-five" className="text-base font-normal">
-                Culture, travel or hobby
-              </Label>
-            </div>
-          </RadioGroup>
-        </div>
-
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
-            <FormFieldComponent
-              placeholder="Full Name"
-              name="name"
-              form={form}
-            />
-            <FormFieldComponent
-              placeholder="Email"
-              type="email"
-              name="email"
-              form={form}
-            />
-            <FormFieldComponent
-              placeholder="Phone Number"
-              name="number"
-              form={form}
-            />
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="space-y-5 mb-10">
+              <h3 className="font-medium text-xl md:text-2xl mb-5">
+                What is your main reason for learning English?
+              </h3>
 
-            {!isSubmitted && (
-              <Button
-                type="submit"
-                variant="yellow"
-                className="w-full h-[60px] text-lg mt-10"
-                disabled={loading}
+              <RadioGroup
+                defaultValue="career-business"
+                onValueChange={(value) => form.setValue("reason", value)}
               >
-                {loading ? (
-                  <span className="flex items-center justify-center">
-                    <Loader className="mr-2 h-4 w-4 animate-spin" />
-                    Loading...
-                  </span>
-                ) : (
-                  "Book"
-                )}
-              </Button>
-            )}
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem
+                    value="career-business"
+                    id="career-business"
+                  />
+                  <Label
+                    htmlFor="career-business"
+                    className="text-base font-normal"
+                  >
+                    Career and business
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="kids-lesson" id="kids-lesson" />
+                  <Label
+                    htmlFor="kids-lesson"
+                    className="text-base font-normal"
+                  >
+                    Lesson for kids
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="living-abroad" id="living-abroad" />
+                  <Label
+                    htmlFor="living-abroad"
+                    className="text-base font-normal"
+                  >
+                    Living abroad
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem
+                    value="exams-coursework"
+                    id="exams-coursework"
+                  />
+                  <Label
+                    htmlFor="exams-coursework"
+                    className="text-base font-normal"
+                  >
+                    Exams and coursework
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem
+                    value="culture-travel-hobby"
+                    id="culture-travel-hobby"
+                  />
+                  <Label
+                    htmlFor="culture-travel-hobby"
+                    className="text-base font-normal"
+                  >
+                    Culture, travel or hobby
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
 
-            {isSubmitted && (
-              <SheetClose asChild>
+            <div className="grid gap-4">
+              <FormFieldComponent
+                placeholder="Full Name"
+                name="name"
+                form={form}
+              />
+              <FormFieldComponent
+                placeholder="Email"
+                type="email"
+                name="email"
+                form={form}
+              />
+              <FormFieldComponent
+                placeholder="Phone Number"
+                name="number"
+                form={form}
+              />
+
+              {!isSubmitted && (
                 <Button
+                  type="submit"
                   variant="yellow"
                   className="w-full h-[60px] text-lg mt-10"
+                  disabled={loading}
                 >
-                  Close
+                  {loading ? (
+                    <span className="flex items-center justify-center">
+                      <Loader className="mr-2 h-4 w-4 animate-spin" />
+                      Loading...
+                    </span>
+                  ) : (
+                    "Book"
+                  )}
                 </Button>
-              </SheetClose>
-            )}
+              )}
 
-            {showMessage && (
-              <FormMessage className="text-primary font-bold text-lg mt-5 text-center">
-                Your trial lesson has been successfully booked!
-              </FormMessage>
-            )}
+              {isSubmitted && (
+                <SheetClose asChild>
+                  <Button
+                    variant="yellow"
+                    className="w-full h-[60px] text-lg mt-10"
+                  >
+                    Close
+                  </Button>
+                </SheetClose>
+              )}
+
+              {showMessage && (
+                <FormMessage className="text-primary font-bold text-lg mt-5 text-center">
+                  Your trial lesson has been successfully booked!
+                </FormMessage>
+              )}
+            </div>
           </form>
         </Form>
       </SheetContent>
