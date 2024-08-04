@@ -101,7 +101,7 @@ export function TeacherCard({ teacher }: { teacher: Teacher }) {
           <CardStats>
             <div className="grid grid-cols-2 xl:grid-cols-none gap-4 xl:gap-0 xl:grid-flow-col xl:auto-cols-auto xl:divide-x-[1px] divide-[#121417]/20 font-medium lg:mr-16 text-nowrap">
               <div className="flex items-center gap-2 xl:pe-4">
-                <BookIcon />
+                <BookIcon className="fill-primary" />
                 <p>Lessons online</p>
               </div>
 
