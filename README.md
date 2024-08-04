@@ -9,7 +9,7 @@ Learn Lingo is a web application designed to help users learn new languages thro
 ![Firebase Badge](https://img.shields.io/badge/Firebase-DD2C00?logo=firebase&logoColor=fff&style=flat)
 ![Vercel Badge](https://img.shields.io/badge/Vercel-000?logo=vercel&logoColor=fff&style=flat)
 
-[![screenshot](https://github.com/Valik3201/learn-lingo/blob/main/public/screenshot-1.png)](https://github.com/Valik3201/nextjs-schedule-generator/blob/main/assets/screenshot-1.png)
+[![screenshot](https://github.com/Valik3201/learn-lingo/blob/main/public/screenshot-1.png)](https://github.com/Valik3201/learn-lingo/blob/main/public/screenshot-1.png)
 
 ## Table of Contents
 
@@ -60,7 +60,7 @@ Once the development server is running, you can start exploring the application.
 - Progress tracking
 - User authentication (sign up, log in, log out)
 
-[![screenshot](https://github.com/Valik3201/learn-lingo/blob/main/public/screenshot-2.png)](https://github.com/Valik3201/nextjs-schedule-generator/blob/main/assets/screenshot-2.png)
+[![screenshot](https://github.com/Valik3201/learn-lingo/blob/main/public/screenshot-2.png)](https://github.com/Valik3201/learn-lingo/blob/main/public/screenshot-2.png)
 
 ## Features
 
@@ -117,9 +117,9 @@ Contributions are welcome! Please follow these steps to contribute:
 
 ## Contact
 
-For questions, suggestions, or issues, please contact [valik3201@gmail.com].
+For questions, suggestions, or issues, please contact `valik3201@gmail.com`.
 
 [![Gmail Badge](https://img.shields.io/badge/Gmail-EA4335?logo=gmail&logoColor=fff&style=flat)](mailto:valik3201@gmail.com)
 [![LinkedIn Badge](https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin&logoColor=fff&style=flat)](https://www.linkedin.com/in/valentynchernetskyi/)
 
-[![screenshot](https://github.com/Valik3201/learn-lingo/blob/main/public/screenshot-3.png)](https://github.com/Valik3201/nextjs-schedule-generator/blob/main/assets/screenshot-3.png)
+[![screenshot](https://github.com/Valik3201/learn-lingo/blob/main/public/screenshot-3.png)](https://github.com/Valik3201/learn-lingo/blob/main/public/screenshot-3.png)
