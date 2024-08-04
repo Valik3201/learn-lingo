@@ -2,11 +2,21 @@
 
 Learn Lingo is a web application designed to help users learn new languages through interactive lessons and activities. This project leverages the power of Next.js, React, and TypeScript to provide a seamless learning experience.
 
+![Next.js Badge](https://img.shields.io/badge/Next.js-000?logo=nextdotjs&logoColor=fff&style=flat)
+![React Badge](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=000&style=flat)
+![TypeScript Badge](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=flat)
+![Tailwind CSS Badge](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=fff&style=flat)
+![Firebase Badge](https://img.shields.io/badge/Firebase-DD2C00?logo=firebase&logoColor=fff&style=flat)
+![Vercel Badge](https://img.shields.io/badge/Vercel-000?logo=vercel&logoColor=fff&style=flat)
+
+[![screenshot](https://github.com/Valik3201/learn-lingo/blob/main/public/screenshot-1.png)](https://github.com/Valik3201/nextjs-schedule-generator/blob/main/assets/screenshot-1.png)
+
 ## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
+- [State Management with Zustand](#state-management-with-zustand)
 - [Configuration](#configuration)
 - [Contributing](#contributing)
 - [Contact](#contact)
@@ -49,7 +59,8 @@ Once the development server is running, you can start exploring the application.
 - Interactive language lessons
 - Progress tracking
 - User authentication (sign up, log in, log out)
-- Personalized learning dashboard
+
+[![screenshot](https://github.com/Valik3201/learn-lingo/blob/main/public/screenshot-2.png)](https://github.com/Valik3201/nextjs-schedule-generator/blob/main/assets/screenshot-2.png)
 
 ## Features
 
@@ -58,6 +69,20 @@ Once the development server is running, you can start exploring the application.
 - **TypeScript**: Static typing for enhanced code quality and developer productivity.
 - **Tailwind CSS**: Utility-first CSS framework for rapid UI development.
 - **Firebase**: Backend services for authentication, database, and storage.
+
+## State Management with Zustand
+
+Learn Lingo uses Zustand for efficient and straightforward state management. Zustand provides a minimalistic API to create global state stores, making it easier to manage the state across the application.
+
+### Key Stores
+
+- **Auth Store (`useAuthStore.ts`):** Manages the authentication state, including user information and authentication status.
+- **Favorites Store (`useFavoritesStore.ts`):** Handles the state related to users’ favorite teachers or lessons.
+- **Teachers Store (`useTeachersStore.ts`):** Manages the list of available teachers, including filtering and sorting.
+
+### Why Zustand?
+
+Zustand is chosen for its simplicity and flexibility. It allows us to create easily maintainable state logic without the boilerplate often associated with other state management solutions. It also supports asynchronous actions and provides a clean API for interacting with the global state.
 
 ## Configuration
 
@@ -93,3 +118,8 @@ Contributions are welcome! Please follow these steps to contribute:
 ## Contact
 
 For questions, suggestions, or issues, please contact [valik3201@gmail.com].
+
+[![Gmail Badge](https://img.shields.io/badge/Gmail-EA4335?logo=gmail&logoColor=fff&style=flat)](mailto:valik3201@gmail.com)
+[![LinkedIn Badge](https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin&logoColor=fff&style=flat)](https://www.linkedin.com/in/valentynchernetskyi/)
+
+[![screenshot](https://github.com/Valik3201/learn-lingo/blob/main/public/screenshot-3.png)](https://github.com/Valik3201/nextjs-schedule-generator/blob/main/assets/screenshot-3.png)
